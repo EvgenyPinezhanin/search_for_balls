@@ -47,8 +47,6 @@ int main(int argc, char** argv) {
     cvtColor(src, dst, COLOR_BGR2GRAY);
     equalizeHist(dst, dst);
     threshold(dst, dst, 245, 255, THRESH_BINARY);
-    // threshold(src, src, 140, 255, THRESH_BINARY);
-    // threshold(src, src, 0, 255, THRESH_BINARY + THRESH_OTSU);
 
     // Удаление шума
     Mat kernel_nose = getStructuringElement(MORPH_CROSS, Size(3, 3));
@@ -63,10 +61,9 @@ int main(int argc, char** argv) {
     }
 
     // "Разлипание" шаров
-    Mat kernel_erode = getStructuringElement(MORPH_ELLIPSE, Size(9, 9));
-    erode(dst, dst, kernel_erode, Point(-1, -1), 2);
-    Mat kernel_dilate = getStructuringElement(MORPH_ELLIPSE, Size(7, 7));
-    dilate(dst, dst, kernel_dilate, Point(-1, -1), 2);
+    Mat kernel = getStructuringElement(MORPH_ELLIPSE, Size(3, 3));
+    erode(dst, dst, kernel, Point(-1, -1), 10);
+    dilate(dst, dst, kernel, Point(-1, -1), 10);
 
     // Поиск контуров шаров
     findContours(dst, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
