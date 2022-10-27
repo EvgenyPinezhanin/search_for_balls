@@ -37,7 +37,6 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 message(${OpenCV_INCLUDE_DIRS})
 
 # BUILD
-add_subdirectory(src)
 add_subdirectory(main)
 
 # REPORT
